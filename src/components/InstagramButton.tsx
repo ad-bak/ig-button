@@ -1,10 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
 import { FaInstagram } from "react-icons/fa";
 import StoryIcon from "../assets/trace";
+import styles from "./InstagramButton.module.css"; // We'll create this file next
 
 const InstagramButton: React.FC = () => {
 	const [showOptions, setShowOptions] = useState(false);
 	const [selectedOption, setSelectedOption] = useState<string>("none");
+	const [isAnimating, setIsAnimating] = useState(false);
 	const buttonRef = useRef<HTMLDivElement>(null);
 
 	const options = [
@@ -31,12 +33,14 @@ const InstagramButton: React.FC = () => {
 	}, []);
 
 	const handleButtonClick = () => {
+		setIsAnimating(true);
 		const currentIndex = options.findIndex(
 			(option) => option.id === selectedOption
 		);
 		const nextIndex = (currentIndex + 1) % options.length;
 		setSelectedOption(options[nextIndex].id);
 		setShowOptions(true);
+		setTimeout(() => setIsAnimating(false), 300); // Match this with animation duration
 	};
 
 	const getButtonStyle = () => {
@@ -57,7 +61,13 @@ const InstagramButton: React.FC = () => {
 	return (
 		<div className="relative" ref={buttonRef}>
 			<button
-				className={`w-20 h-20 border-2 border-gray-300 rounded-lg flex items-center justify-center hover:opacity-80 transition-all duration-200 ${getButtonStyle()}`}
+				className={`
+					w-20 h-20 border-2 border-gray-300 rounded-lg 
+					flex items-center justify-center 
+					hover:opacity-80 transition-all duration-200 
+					${getButtonStyle()}
+					${isAnimating ? styles.clickAnimation : ""}
+				`}
 				onClick={handleButtonClick}
 				onMouseEnter={() => setShowOptions(true)}
 			>
