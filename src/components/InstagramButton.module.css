@@ -10,6 +10,15 @@
 	}
 }
 
+@keyframes gradientAnimation {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
 .clickAnimation {
 	animation: clickEffect 300ms ease-out;
 }
@@ -23,9 +32,64 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	z-index: 2;
 }
 
 .icon {
 	width: 48px;
 	height: 48px;
+}
+
+.buttonNone,
+.buttonPublication,
+.buttonStory,
+.buttonBoth {
+	position: relative;
+	overflow: hidden;
+	transition: color 0.3s ease;
+}
+
+.buttonNone {
+	background-color: white;
+	color: #4a5568;
+}
+
+.buttonPublication {
+	background-color: white;
+	color: #e1306c;
+}
+
+.buttonStory {
+	background-color: #f7fafc;
+	color: #e1306c;
+}
+
+.buttonBoth {
+	color: white;
+}
+
+.backgroundTransition {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	opacity: 0;
+	z-index: 1;
+	pointer-events: none;
+	background: linear-gradient(to top right, #fbbf24, #f43f5e, #7c3aed);
+}
+
+.backgroundBoth {
+	animation: gradientAnimation 1s ease-in-out forwards;
+}
+
+.confettiWrapper {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+	z-index: 9999;
 }
